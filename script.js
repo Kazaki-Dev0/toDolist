@@ -8,6 +8,8 @@ const titulo = document.getElementById('titulo');
 let nome = prompt('Qual o seu nome?');
 titulo.innerHTML = `Lista de Tarefas do(a) ${nome}`;
 
+tarefa.focus();
+
 if(nome =='') {
     
     titulo.innerHTML = 'Lista de Tarefas';
@@ -17,7 +19,16 @@ else{
 }
 btnadd.addEventListener('click', criaTarefa);
 
+tarefa.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') criaTarefa();
+});
+
 function criaTarefa() {
+    if (tarefa.value === '') {
+        alert('Digite uma tarefa!');
+        return;
+    }
+    else{
     const listItem = document.createElement('li');
     listItem.textContent = tarefa.value;
     taskList.appendChild(listItem)
@@ -47,4 +58,8 @@ function criaTarefa() {
     concluirButton.addEventListener("click", function(){
         listItem.classList.toggle('completed');
     });
-}
+
+    //limpar o campo de input
+    tarefa.value = '';
+    tarefa.focus();// manter o foco no campo de input
+}}
